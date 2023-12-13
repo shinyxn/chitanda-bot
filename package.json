@@ -1,0 +1,21 @@
+{
+  "name": "chitanda-bot",
+  "version": "1.0.0",
+  "description": "chitanda-bot arm64 version",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "shinyxn",
+  "license": "ISC",
+  "dependencies": {
+    "@whiskeysockets/baileys": "^6.4.1",
+    "dotenv": "^16.3.1",
+    "node_characterai": "file:lib/node_characterai",
+    "puppeteer-core": "^5.3.1",
+    "qrcode-terminal": "^0.12.0"
+  }
+}
