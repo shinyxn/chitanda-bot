@@ -25,11 +25,9 @@ jobs:
           name: id_rsa
           known_hosts: ${{ secrets.KNOWN_HOSTS }}
           if_key_exists: fail
-      - name: connect to server via cloudflared
-        run:
-          ssh  -o ProxyCommand="cloudflared access ssh --hostname ${{ secrets.SSH_HOST }}" ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}
-      - name: deploy bot using pm2
+      - name: connect to server via cloudflared and deploy bot
         run: |
+          ssh  -o ProxyCommand="cloudflared access ssh --hostname ${{ secrets.SSH_HOST }}" ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}
             cd ~/chitanda-bot
             git pull origin master
             git status
