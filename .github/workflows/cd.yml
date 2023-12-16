@@ -29,7 +29,7 @@ jobs:
         run:
           ssh  -o ProxyCommand="cloudflared access ssh --hostname ${{ secrets.SSH_HOST }}" ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}
       - name: deploy bot using pm2
-        run:
+      - run: |
             cd ~/chitanda-bot
             git pull origin master
             git status
