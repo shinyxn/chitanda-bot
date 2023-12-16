@@ -25,6 +25,9 @@ jobs:
           name: id_rsa
           known_hosts: 'and-the-day-bleeds-in-to-nightfall'
           if_key_exists: fail
-      - name: 
+      - name: connect to server via cloudflared
         run:
-          ssh  -o ProxyCommand="cloudflared access ssh --hostname ${{ secrets.SSH_HOST }}" ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} < whoami
+          ssh  -o ProxyCommand="cloudflared access ssh --hostname ${{ secrets.SSH_HOST }}" ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}
+      - name: deploy bot
+        run:
+          
