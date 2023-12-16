@@ -23,7 +23,7 @@ jobs:
         with:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           name: id_rsa
-          known_hosts: 'and-the-day-bleeds-in-to-nightfall'
+          known_hosts: ${{ secrets.KNOWN_HOSTS }}
           if_key_exists: fail
       - name: connect to server via cloudflared
         run:
