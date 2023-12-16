@@ -1,0 +1,30 @@
+name: cd
+
+on:
+  push:
+    branches:
+      - arm64
+
+jobs:
+  deployment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: check out
+        uses: actions/checkout@master
+      - name: install cloudflared
+        run: |
+          curl -L https://pkg.cloudflare.com/cloudflare-main.gpg | sudo tee /usr/share/keyrings/cloudflare-archive-keyring.gpg >/dev/null
+          echo "deb [signed-by=/usr/share/keyrings/cloudflare-archive-keyring.gpg] https://pkg.cloudflare.com/cloudflared $(lsb_release -cs) main" | sudo tee  /etc/apt/sources.list.d/cloudflared.list
+          sudo apt update
+          sudo apt-get install cloudflared
+          cloudflared --version
+      - name: install-ssh-key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          name: id_rsa
+          known_hosts: 'and-the-day-bleeds-in-to-nightfall'
+          if_key_exists: fail
+      - name: 
+        run:
+          ssh  -o ProxyCommand="cloudflared access ssh --hostname ${{ secrets.SSH_HOST }}" ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} < whoami
